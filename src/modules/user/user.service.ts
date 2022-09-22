@@ -29,7 +29,7 @@ export class UserService {
       return `User: ${user.login} create!`;
 
     }catch(error){
-      console.log(error)
+
       throw new InternalServerErrorException("Sorry the server couldn't process your request")
     }
   }
