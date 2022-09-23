@@ -1,8 +1,10 @@
-import { Controller, Post, Body, UseFilters } from '@nestjs/common';
+import { Controller, Post, Body, UseFilters, UseGuards, Res, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.dto';
 
 import { HttpExceptionFilter } from 'src/filter/httpException.filter';
+import { AuthGuard } from '@nestjs/passport';
+import { Request, Response } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -15,13 +17,14 @@ export class UserController {
   }
 
   @Post('/login')
-  login(@Body() createUserDto: UserDto) {
-    return this.userService.login(createUserDto);
+  login(@Body() createUserDto: UserDto, @Res({passthrough: true}) res: Response, @Req() req: Request) {
+    return this.userService.login(createUserDto, res, req);
   }
 
   @Post('/refresh')
-  refresh() {
-    return this.userService.refresh();
+  @UseGuards(AuthGuard('jwt-refresh'))
+  refresh(@Res({passthrough: true}) res: Response, @Req() req: Request) {
+    return this.userService.refresh(res, req);
   }
 
   @Post('/lagout')
