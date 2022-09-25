@@ -28,8 +28,8 @@ export class UserController {
   }
 
   @Post('/lagout')
-  lagout() {
-    return this.userService.lagout();
+  lagout(@Res({passthrough: true}) res: Response, @Req() req: Request) {
+    return this.userService.lagout(res, req);
   }
 
 }

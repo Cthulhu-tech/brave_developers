@@ -1,5 +1,6 @@
 import { BaseEntity, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Message } from "src/modules/message/entities/message.entity";
+import { Room } from "src/modules/room/entities/room.entity";
 import { JWT } from "./token.entity";
 
 @Entity("User")
@@ -17,6 +18,10 @@ export class User extends BaseEntity {
         type: "varchar"
     })
     password: string;
+
+    @OneToMany(() => Room, room => room.id)
+    @JoinColumn()
+    room_id: Room;
 
     @OneToMany(() => Message, message => message.id)
     @JoinColumn()

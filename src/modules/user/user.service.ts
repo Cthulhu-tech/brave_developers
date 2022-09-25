@@ -82,7 +82,10 @@ export class UserService {
     return {token: accessToken, user: (req.user as IPayload).login, id: findUser.id}
   }
 
-  lagout(){
-    return 'This action lagout a user';
+  async lagout(res: Response, req: Request){
+
+    await this.deleteToken(req)
+    res.cookie('refresh', '', {httpOnly: true, domain: 'localhost', maxAge: 0});
+    return {message: 'User lagout'};
   }
 }
