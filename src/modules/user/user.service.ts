@@ -68,7 +68,7 @@ export class UserService {
     const {accessToken, refreshToken} = await this.tokenCreate(res, findUser)
     await this.deleteToken(req)
     await JWT.create({user_id: findUser, token: refreshToken}).save()
-    return {accessToken, user: user.login}
+    return {token: accessToken, user: user.login, id: findUser.id}
   }
 
   async refresh(res: Response, req: Request){
@@ -79,7 +79,7 @@ export class UserService {
     const {accessToken, refreshToken} = await this.tokenCreate(res, req.user as IPayload)
     await this.deleteToken(req)
     await JWT.create({user_id: findUser, token: refreshToken}).save()
-    return {accessToken, user: (req.user as IPayload).login}
+    return {token: accessToken, user: (req.user as IPayload).login, id: findUser.id}
   }
 
   lagout(){
