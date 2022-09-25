@@ -11,11 +11,11 @@ export class Message extends BaseEntity {
 
     @ManyToOne(() => Room, room => room.id)
     @JoinColumn()
-    room_id: Room;
+    room_id: number;
 
     @ManyToOne(() => User, user => user.id)
     @JoinColumn()
-    user_id: User;
+    user_id: number;
 
     @Column({
         type: "varchar"
