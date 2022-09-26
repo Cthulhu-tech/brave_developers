@@ -17,7 +17,7 @@ export class Room extends BaseEntity {
     @JoinColumn()
     user_created: User;
 
-    @OneToMany(() => Message, message => message.id)
+    @OneToMany(() => Message, message => message.id, { onDelete: 'CASCADE' })
     @JoinColumn()
     message: Message;
 }
