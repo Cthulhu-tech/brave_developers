@@ -9,7 +9,7 @@ export class Message extends BaseEntity {
     @PrimaryGeneratedColumn({comment: "Primary key Message"})
     id: number;
 
-    @ManyToOne(() => Room, room => room.id)
+    @ManyToOne(() => Room, room => room.id, { onDelete: 'CASCADE' })
     @JoinColumn()
     room_id: number;
 
