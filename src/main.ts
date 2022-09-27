@@ -5,6 +5,11 @@ require('dotenv').config()
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+  });
   const options = {
     origin: process.env.SERVER_CORS,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
