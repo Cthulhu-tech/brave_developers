@@ -12,6 +12,7 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
     credentials: true
   };
+  app.use(require('cors')({origin: process.env.SERVER_CORS, credentials: true, optionSuccessStatus: 200, headers: "Access-Control-Allow-Headers, Origin, X-Requested-With, Content-Type, Accept, Authorization"}));
   app.enableCors(options);
   app.use(cookieParser())
   await app.listen(3000);
